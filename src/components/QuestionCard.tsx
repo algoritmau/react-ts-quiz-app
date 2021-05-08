@@ -1,6 +1,11 @@
 import React from 'react'
 import { AnswerObject } from '../App'
 
+import {
+  AnswerButtonStyles,
+  QuestionCardStyles,
+} from '../styles/QuestionCard.styles'
+
 type Props = {
   totalQuestions: number
   questionNumber: number
@@ -18,21 +23,30 @@ const QuestionCard: React.FC<Props> = ({
   userAnswer,
   callback,
 }) => (
-  <div>
-    <p className="number">
+  <QuestionCardStyles>
+    <p className="question__number">
       Question: {questionNumber} / {totalQuestions}
     </p>
-    <p dangerouslySetInnerHTML={{ __html: question }} />
-    <ul>
+    <p
+      dangerouslySetInnerHTML={{ __html: question }}
+      className="question__text"
+    />
+    <div className="answers">
       {answers.map((answer) => (
-        <li key={questionNumber}>
-          <button disabled={!!userAnswer} value={answer} onClick={callback}>
-            <span dangerouslySetInnerHTML={{ __html: answer }} />
-          </button>
-        </li>
+        <AnswerButtonStyles
+          key={questionNumber * Math.random()}
+          correct={userAnswer?.correctAnswer === answer}
+          userClicked={userAnswer?.answer === answer}
+          disabled={!!userAnswer}
+          value={answer}
+          onClick={callback}
+          className="answer__button"
+        >
+          <span dangerouslySetInnerHTML={{ __html: answer }} />
+        </AnswerButtonStyles>
       ))}
-    </ul>
-  </div>
+    </div>
+  </QuestionCardStyles>
 )
 
 export default QuestionCard

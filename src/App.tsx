@@ -6,6 +6,8 @@ import { Difficulty, QuestionState } from './api'
 
 import QuestionCard from './components/QuestionCard'
 
+import { AppStyles } from './styles/App.style'
+
 export type AnswerObject = {
   question: string
   answer: string
@@ -35,7 +37,7 @@ const App = () => {
     setQuestions(newQuestions)
     setScore(0)
     setUserAnswers([])
-    setQuestionNumber(0)
+    setQuestionNumber(1)
 
     setLoading(false)
   }
@@ -76,7 +78,7 @@ const App = () => {
   }
 
   return (
-    <div className="App">
+    <AppStyles>
       <h1>React/TS Quiz App</h1>
       {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
         <button className="start" onClick={startTrivia}>
@@ -103,7 +105,7 @@ const App = () => {
             Next Question
           </button>
         )}
-    </div>
+    </AppStyles>
   )
 }
 
